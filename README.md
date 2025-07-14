@@ -73,7 +73,7 @@ pip install -r requirements.txt
 ### 4. Configurar Variables de Entorno
 ```bash
 # Copia el archivo de ejemplo y configura tus credenciales
-cp .env.example .env
+copy .env.example .env
 # Edita .env con tu URL de MongoDB Atlas
 ```
 
