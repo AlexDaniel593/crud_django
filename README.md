@@ -9,7 +9,9 @@
 
 ## 📚 Descripción
 
-Este proyecto implementa un sistema CRUD completo para gestionar empleados usando Django como framework web y MongoDB como base de datos. El sistema incluye **vulnerabilidades de seguridad intencionadas** para demostrar malas prácticas de desarrollo y servir como herramienta educativa en ciberseguridad.
+Este proyecto implementa un sistema CRUD completo para gestionar empleados usando Django como framework web y MongoDB Atlas como base de datos. El sistema incluye **vulnerabilidades de seguridad intencionadas** para demostrar malas prácticas de desarrollo y servir como herramienta educativa en ciberseguridad.
+
+**Repositorio:** https://github.com/AlexDaniel593/crud_django.git
 
 ## 🎯 Propósito Educativo
 
@@ -37,10 +39,11 @@ El sistema incluye un mecanismo de login con **vulnerabilidades de seguridad int
 ## Características
 
 - **CRUD completo**: Crear, Leer, Actualizar y Eliminar empleados
+- **Sistema de Login**: Autenticación con vulnerabilidades intencionadas
 - **Interfaz web moderna**: Usando Bootstrap 5 y Font Awesome
 - **API REST**: Endpoints JSON para integración con otras aplicaciones
 - **MongoDB Atlas**: Conexión a cluster de MongoDB en la nube
-- **Validación de datos**: Validación tanto en frontend como backend
+- **Validación de datos**: Validación tanto en frontend como backend (con fallas intencionadas)
 
 ## 🚀 Instalación y Configuración
 
@@ -51,8 +54,8 @@ El sistema incluye un mecanismo de login con **vulnerabilidades de seguridad int
 
 ### 1. Clonar el Repositorio
 ```bash
-git clone https://github.com/tu-usuario/crud-empleados-vulnerabilidades.git
-cd crud-empleados-vulnerabilidades
+git clone https://github.com/AlexDaniel593/crud_django.git
+cd crud_django
 ```
 
 ### 2. Crear Entorno Virtual
@@ -69,68 +72,34 @@ pip install -r requirements.txt
 
 ### 4. Configurar Variables de Entorno
 ```bash
+# Copia el archivo de ejemplo y configura tus credenciales
 cp .env.example .env
-# Edita .env con tus credenciales de MongoDB
+# Edita .env con tu URL de MongoDB Atlas
 ```
 
-### 5. Configurar Base de Datos
+**Ejemplo de configuración .env:**
+```env
+MONGODB_URI=mongodb+srv://tu_usuario:tu_password@cluster0.xxxxx.mongodb.net/
+MONGODB_DATABASE=Investigacion
+```
+
+### 5. Aplicar Migraciones y Configurar Base de Datos
 ```bash
 python manage.py migrate
 python crear_admin.py
 ```
 
-### 6. Ejecutar el Servidor
+### 6. Crear Datos de Ejemplo (Opcional)
 ```bash
-# Opción 1: Script automático (Windows)
-ejecutar_con_login.bat
-
-# Opción 2: Manual
-python manage.py runserver
+python test_mongodb.py
 ```
 
-### 7. Acceder al Sistema
-1. Ve a: http://127.0.0.1:8000/
-2. Ingresa las credenciales:
-   - **Usuario:** `admin`
-   - **Contraseña:** `admin`
-
-## Configuración
-
-### 1. Variables de Entorno
-
-Edita el archivo `.env` y actualiza la contraseña de tu cluster MongoDB:
-
-```env
-MONGODB_URI=mongodb+srv://daxel203:TU_PASSWORD@cluster0.0xohifm.mongodb.net/
-MONGODB_DATABASE=Investigacion
-```
-
-### 2. Instalación de Dependencias
-
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Configurar Usuario Administrador
-
-```bash
-python crear_admin.py
-```
-
-### 4. Ejecutar el Servidor
-
-**Opción A - Script automático:**
-```bash
-ejecutar_con_login.bat
-```
-
-**Opción B - Manual:**
+### 7. Ejecutar el Servidor
 ```bash
 python manage.py runserver
 ```
 
-### 5. Acceder al Sistema
-
+### 8. Acceder al Sistema
 1. Ve a: http://127.0.0.1:8000/
 2. Ingresa las credenciales:
    - **Usuario:** `admin`
@@ -224,31 +193,83 @@ El modelo `Empleado` incluye los siguientes campos:
 
 ```
 crud_django/
-├── .env.example              # Variables de entorno de ejemplo
-├── .gitignore               # Archivos a ignorar por Git
-├── requirements.txt         # Dependencias de Python
-├── manage.py               # Comando principal de Django
-├── crear_admin.py          # Script para crear usuario admin
-├── test_mongodb.py         # Script de prueba de MongoDB
-├── ejecutar_con_login.bat  # Script de ejecución automática
-├── crud_django/            # Configuración principal
-│   ├── settings.py         # Configuración de Django
-│   ├── urls.py            # URLs principales
-│   └── wsgi.py            # Configuración WSGI
-└── empleados/             # App principal
-    ├── models.py          # Modelos (Usuario y Empleado)
-    ├── views.py           # Vistas y lógica de negocio
-    ├── urls.py            # URLs de la app
-    └── templates/         # Templates HTML
+├── .env                     # Variables de entorno (NO incluido en Git)
+├── .env.example            # Ejemplo de variables de entorno
+├── .gitignore              # Archivos a ignorar por Git
+├── requirements.txt        # Dependencias de Python
+├── manage.py              # Comando principal de Django
+├── crear_admin.py         # Script para crear usuario admin
+├── test_mongodb.py        # Script de prueba de MongoDB
+├── ejecutar_con_login.bat # Script de ejecución automática (Windows)
+├── crud_django/           # Configuración principal del proyecto
+│   ├── __init__.py
+│   ├── settings.py        # Configuración de Django y MongoDB
+│   ├── urls.py           # URLs principales
+│   ├── wsgi.py          # Configuración WSGI
+│   └── asgi.py          # Configuración ASGI
+└── empleados/            # App principal de empleados
+    ├── __init__.py
+    ├── models.py         # Modelos (Usuario y Empleado)
+    ├── views.py          # Vistas y lógica de negocio
+    ├── urls.py           # URLs de la app
+    ├── apps.py           # Configuración de la app
+    ├── admin.py          # Configuración del admin
+    ├── tests.py          # Tests (vacío)
+    └── templates/        # Templates HTML
         └── empleados/
-            ├── base.html
-            ├── login.html
-            ├── lista.html
-            ├── crear.html
-            ├── detalle.html
-            ├── editar.html
-            ├── eliminar.html
-            └── error.html
+            ├── base.html      # Template base
+            ├── login.html     # Página de login
+            ├── lista.html     # Lista de empleados
+            ├── crear.html     # Crear empleado
+            ├── detalle.html   # Detalles del empleado
+            ├── editar.html    # Editar empleado
+            ├── eliminar.html  # Confirmar eliminación
+            └── error.html     # Página de error
+```
+
+## 📊 Base de Datos MongoDB
+
+### Colecciones:
+- **`empleado`**: Almacena información de empleados
+- **`usuario`**: Almacena usuarios del sistema (con vulnerabilidades)
+
+### Modelo Empleado:
+- `nombre`: Nombre del empleado (requerido)
+- `apellido`: Apellido del empleado (requerido)
+- `email`: Email único (requerido)
+- `telefono`: Número de teléfono
+- `departamento`: Departamento de trabajo
+- `cargo`: Cargo o posición
+- `salario`: Salario del empleado
+- `fecha_contratacion`: Fecha de contratación (automática)
+- `activo`: Estado del empleado (Si/No)
+
+### Modelo Usuario (Con Vulnerabilidades):
+- `username`: Nombre de usuario único (requerido)
+- `password`: Contraseña **SIN CIFRAR** ⚠️ (requerido)
+- `email`: Email del usuario
+- `es_admin`: Si es administrador (Si/No)
+- `ultimo_acceso`: Fecha del último acceso
+
+## 🛠️ Scripts Disponibles
+
+### `ejecutar_con_login.bat` (Windows)
+Script que automatiza todo el proceso:
+- Verifica la configuración
+- Aplica migraciones
+- Crea el usuario admin
+- Inicia el servidor
+
+### `crear_admin.py`
+Crea el usuario administrador con vulnerabilidades intencionadas:
+```bash
+python crear_admin.py
+```
+
+### `test_mongodb.py`
+Prueba la conexión a MongoDB y crea empleados de ejemplo:
+```bash
+python test_mongodb.py
 ```
 
 ## 🤝 Contribuciones
@@ -272,7 +293,7 @@ Este proyecto es solo para **fines educativos**. No está destinado para uso en 
 
 ## 👨‍💻 Autor
 
-Desarrollado para fines educativos en ciberseguridad y desarrollo seguro.
+Desarrollado por AlexDaniel593 para fines educativos en ciberseguridad y desarrollo seguro.
 
 ---
 
