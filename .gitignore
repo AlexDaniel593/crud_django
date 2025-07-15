@@ -30,7 +30,7 @@ ENV/
 env/
 
 # Variables de entorno sensibles
-.env
+#.env
 
 # Base de datos SQLite de Django
 db.sqlite3

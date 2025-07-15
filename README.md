@@ -70,36 +70,23 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 4. Configurar Variables de Entorno
-```bash
-# Copia el archivo de ejemplo y configura tus credenciales
-cp .env.example .env
-# Edita .env con tu URL de MongoDB Atlas
-```
-
-**Ejemplo de configuración .env:**
-```env
-MONGODB_URI=mongodb+srv://tu_usuario:tu_password@cluster0.xxxxx.mongodb.net/
-MONGODB_DATABASE=Investigacion
-```
-
-### 5. Aplicar Migraciones y Configurar Base de Datos
+### 4. Aplicar Migraciones y Configurar Base de Datos
 ```bash
 python manage.py migrate
 python crear_admin.py
 ```
 
-### 6. Crear Datos de Ejemplo (Opcional)
+### 5. Crear Datos de Ejemplo (Opcional)
 ```bash
 python test_mongodb.py
 ```
 
-### 7. Ejecutar el Servidor
+### 6. Ejecutar el Servidor
 ```bash
 python manage.py runserver
 ```
 
-### 8. Acceder al Sistema
+### 7. Acceder al Sistema
 1. Ve a: http://127.0.0.1:8000/
 2. Ingresa las credenciales:
    - **Usuario:** `admin`
